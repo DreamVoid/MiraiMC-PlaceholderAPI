@@ -7,6 +7,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+
 public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     @Override
@@ -21,7 +27,7 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return "1.0";
+        return "1.1.1";
     }
 
     @Override
@@ -78,19 +84,19 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
             }
             case "bindqq": {
                 if (args.length >= 2) {
-                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
-                    return String.valueOf(MiraiMC.getBinding(player.getUniqueId().toString()));
-                } else return String.valueOf(MiraiMC.getBinding(p.getUniqueId().toString()));
+                    OfflinePlayer player = Bukkit.getPlayer(args[1]);
+                    return String.valueOf(MiraiMC.getBind(player.getUniqueId()));
+                } else return String.valueOf(MiraiMC.getBind(p.getUniqueId()));
             }
             case "binduuid":{
                 if(args.length >= 2) {
-                    return MiraiMC.getBinding(Long.parseLong(args[1]));
+                    return MiraiMC.getBind(Long.parseLong(args[1])).toString();
                 }
                 break;
             }
             case "bindname":{
                 if(args.length >= 2) {
-                    return Bukkit.getOfflinePlayer(MiraiMC.getBinding(Long.parseLong(args[1]))).getName();
+                    return Bukkit.getOfflinePlayer(MiraiMC.getBind(Long.parseLong(args[1]))).getName();
                 }
                 break;
             }
